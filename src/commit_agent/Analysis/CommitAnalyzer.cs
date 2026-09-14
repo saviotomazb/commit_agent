@@ -25,6 +25,21 @@ public class CommitAnalyzer
             return string.Empty;
         }
 
-        return diff;
+        var prompt = $"""
+            Analyze the following Git diff and generate a Conventional Commit message.
+
+            Rules:
+            - Use the format: type: description
+            - Use one of these types: feat, fix, refactor, docs, test, chore
+            - Keep the description concise.
+            - Return only the commit message.
+            - Do not use Markdown.
+            - Do not add explanations.
+
+            Git diff:
+            {diff}
+            """;
+
+        return await _llmProvider.GenerateAsync(prompt);
     }
 }

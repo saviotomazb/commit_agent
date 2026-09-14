@@ -15,7 +15,7 @@ public class OllamaProvider : ILLMProvider
     {
         var request = new
         {
-            model = "llama3.2",
+            model = "qwen2.5:3b",
             prompt,
             stream = false
         };
