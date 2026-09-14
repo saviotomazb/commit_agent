@@ -1,4 +1,5 @@
-﻿using commit_agent.Git;
+﻿using commit_agent.Analysis;
+using commit_agent.Git;
 
 Console.WriteLine("Commit Agent");
 
@@ -13,10 +14,11 @@ var command = args[0];
 if (command == "analyze")
 {
     var gitService = new GitService();
+    var analyzer = new CommitAnalyzer(gitService);
 
     try
     {
-        var diff = await gitService.GetDiffAsync();
+        var diff = await analyzer.AnalyzeAsync();
 
         if (string.IsNullOrWhiteSpace(diff))
         {
