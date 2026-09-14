@@ -1,4 +1,5 @@
-﻿using commit_agent.Analysis;
+﻿using commit_agent.AI;
+using commit_agent.Analysis;
 using commit_agent.Git;
 
 Console.WriteLine("Commit Agent");
@@ -14,7 +15,17 @@ var command = args[0];
 if (command == "analyze")
 {
     var gitService = new GitService();
-    var analyzer = new CommitAnalyzer(gitService);
+
+    using var httpClient = new HttpClient
+    {
+        BaseAddress = new Uri("http://localhost:11434/")
+    };
+
+    ILLMProvider llmProvider = new OllamaProvider(httpClient);
+
+    var analyzer = new CommitAnalyzer(
+        gitService,
+        llmProvider);
 
     try
     {
