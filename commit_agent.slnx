@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/commit_agent/commit_agent.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/commit_agent.Tests/commit_agent.Tests.csproj" />
+  </Folder>
+</Solution>
