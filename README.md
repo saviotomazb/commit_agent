@@ -1,10 +1,8 @@
 <div align="center">
 
-<img src="docs/commit_agent.png" alt="Commit Agent" width="420">
+<img src="docs/commit_agent.png" alt="Commit Agent" width="300">
 
-# Commit Agent
-
-A simple CLI tool that analyzes Git changes using a local LLM and generates Conventional Commit messages.
+<p>A simple CLI tool that analyzes Git changes using a local LLM and generates Conventional Commit messages.</p>
 
 </div>
 
