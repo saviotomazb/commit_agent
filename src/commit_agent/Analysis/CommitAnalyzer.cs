@@ -7,39 +7,49 @@ public class CommitAnalyzer
 {
     private readonly GitService _gitService;
     private readonly ILLMProvider _llmProvider;
+    private readonly CommitSuggestionParser _parser;
 
     public CommitAnalyzer(
         GitService gitService,
-        ILLMProvider llmProvider)
+        ILLMProvider llmProvider,
+        CommitSuggestionParser parser)
     {
         _gitService = gitService;
         _llmProvider = llmProvider;
+        _parser = parser;
     }
 
-    public async Task<string> AnalyzeAsync()
+    public async Task<CommitSuggestion?> AnalyzeAsync()
     {
         var diff = await _gitService.GetDiffAsync();
 
         if (string.IsNullOrWhiteSpace(diff))
         {
-            return string.Empty;
+            return null;
         }
 
         var prompt = $"""
-            Analyze the following Git diff and generate a Conventional Commit message.
+            Analyze the following Git diff and generate a Conventional Commit suggestion.
+
+            Your response MUST be valid JSON.
+            Do not use Markdown.
+            Do not use code fences.
+            Do not include any text before or after the JSON.
+
+            The JSON must contain exactly these properties:
+            "type": the Conventional Commit type
+            "description": the commit description
 
             Rules:
-            - Use the format: type: description
-            - Use one of these types: feat, fix, refactor, docs, test, chore
+            - Use one of these types: feat, fix, refactor, docs, test, chore.
             - Keep the description concise.
-            - Return only the commit message.
-            - Do not use Markdown.
-            - Do not add explanations.
 
             Git diff:
             {diff}
             """;
 
-        return await _llmProvider.GenerateAsync(prompt);
+        var response = await _llmProvider.GenerateAsync(prompt);
+
+        return _parser.Parse(response);
     }
 }

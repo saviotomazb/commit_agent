@@ -23,22 +23,25 @@ if (command == "analyze")
 
     ILLMProvider llmProvider = new OllamaProvider(httpClient);
 
+    var parser = new CommitSuggestionParser();
+
     var analyzer = new CommitAnalyzer(
         gitService,
-        llmProvider);
+        llmProvider,
+        parser);
 
     try
     {
-        var diff = await analyzer.AnalyzeAsync();
+        var suggestion = await analyzer.AnalyzeAsync();
 
-        if (string.IsNullOrWhiteSpace(diff))
+        if (suggestion is null)
         {
             Console.WriteLine("Nenhuma alteração encontrada.");
             return;
         }
 
-        Console.WriteLine("Alterações encontradas:");
-        Console.WriteLine(diff);
+        Console.WriteLine("Sugestão de commit:");
+        Console.WriteLine($"{suggestion.Type}: {suggestion.Description}");
     }
     catch (Exception ex)
     {
