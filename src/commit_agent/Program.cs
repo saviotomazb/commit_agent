@@ -25,10 +25,13 @@ if (command == "analyze")
 
     var parser = new CommitSuggestionParser();
 
+    var validator = new CommitSuggestionValidator();
+
     var analyzer = new CommitAnalyzer(
         gitService,
         llmProvider,
-        parser);
+        parser,
+        validator);
 
     try
     {

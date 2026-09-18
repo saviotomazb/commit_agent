@@ -9,16 +9,6 @@ public class CommitSuggestionParser
         PropertyNameCaseInsensitive = true
     };
 
-    private static readonly HashSet<string> AllowedTypes =
-    [
-        "feat",
-        "fix",
-        "refactor",
-        "docs",
-        "test",
-        "chore"
-    ];
-
     public CommitSuggestion Parse(string response)
     {
         if (string.IsNullOrWhiteSpace(response))
@@ -38,8 +28,6 @@ public class CommitSuggestionParser
             throw new InvalidOperationException(
                 "The LLM response could not be converted into a commit suggestion.");
         }
-
-        Validate(suggestion);
 
         return suggestion;
     }
@@ -77,26 +65,5 @@ public class CommitSuggestionParser
         }
 
         return content[jsonStart..(jsonEnd + 1)];
-    }
-
-    private static void Validate(CommitSuggestion suggestion)
-    {
-        if (string.IsNullOrWhiteSpace(suggestion.Type))
-        {
-            throw new InvalidOperationException(
-                "The commit type returned by the LLM is empty.");
-        }
-
-        if (!AllowedTypes.Contains(suggestion.Type.ToLowerInvariant()))
-        {
-            throw new InvalidOperationException(
-                $"The commit type '{suggestion.Type}' is not a valid Conventional Commit type.");
-        }
-
-        if (string.IsNullOrWhiteSpace(suggestion.Description))
-        {
-            throw new InvalidOperationException(
-                "The commit description returned by the LLM is empty.");
-        }
     }
 }

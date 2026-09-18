@@ -8,15 +8,18 @@ public class CommitAnalyzer
     private readonly GitService _gitService;
     private readonly ILLMProvider _llmProvider;
     private readonly CommitSuggestionParser _parser;
+    private readonly CommitSuggestionValidator _validator;
 
     public CommitAnalyzer(
         GitService gitService,
         ILLMProvider llmProvider,
-        CommitSuggestionParser parser)
+        CommitSuggestionParser parser,
+        CommitSuggestionValidator validator)
     {
         _gitService = gitService;
         _llmProvider = llmProvider;
         _parser = parser;
+        _validator = validator;
     }
 
     public async Task<CommitSuggestion?> AnalyzeAsync()
@@ -50,6 +53,10 @@ public class CommitAnalyzer
 
         var response = await _llmProvider.GenerateAsync(prompt);
 
-        return _parser.Parse(response);
+        var suggestion = _parser.Parse(response);
+
+        _validator.Validate(suggestion);
+
+        return suggestion;
     }
 }

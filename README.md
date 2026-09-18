@@ -78,9 +78,9 @@ refactor: update model name in OllamaProvider
 
 ### Next steps
 
-* [ ] Create `CommitSuggestion` model
-* [ ] Implement structured LLM output
-* [ ] Validate generated Conventional Commit messages
+* [x] Create `CommitSuggestion` model
+* [x] Implement structured LLM output
+* [x] Validate generated Conventional Commit messages
 * [ ] Improve prompt design
 * [ ] Add configurable LLM model
 * [ ] Move configuration outside the source code
