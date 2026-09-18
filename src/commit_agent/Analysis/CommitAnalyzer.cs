@@ -34,18 +34,34 @@ public class CommitAnalyzer
         var prompt = $"""
             Analyze the following Git diff and generate a Conventional Commit suggestion.
 
-            Your response MUST be valid JSON.
-            Do not use Markdown.
-            Do not use code fences.
-            Do not include any text before or after the JSON.
+            Choose the commit type that best represents the primary change.
 
-            The JSON must contain exactly these properties:
-            "type": the Conventional Commit type
-            "description": the commit description
+            Commit types:
+            - feat: adds new functionality.
+            - fix: corrects broken behavior.
+            - refactor: restructures existing code without changing behavior.
+            - docs: changes documentation.
+            - test: changes tests.
+            - chore: performs maintenance that does not affect application behavior.
 
-            Rules:
-            - Use one of these types: feat, fix, refactor, docs, test, chore.
-            - Keep the description concise.
+            Description:
+            - State the concrete change made by the diff.
+            - Focus on the result of the change, not its implementation details.
+            - Be specific about the affected component when useful.
+            - Use imperative mood.
+            - Keep it concise.
+            - Do not repeat the commit type in the description.
+            - Do not mention readability, maintainability, quality, or performance unless explicitly implemented.
+            - Do not invent behavior or functionality.
+            - Do not end with a period.
+
+            Examples:
+            feat: add commit suggestion parser
+            fix: handle empty Git diff
+            refactor: separate parsing from validation
+            docs: update project roadmap
+            test: add parser validation tests
+            chore: update project dependencies
 
             Git diff:
             {diff}

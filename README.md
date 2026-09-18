@@ -81,7 +81,7 @@ refactor: update model name in OllamaProvider
 * [x] Create `CommitSuggestion` model
 * [x] Implement structured LLM output
 * [x] Validate generated Conventional Commit messages
-* [ ] Improve prompt design
+* [x] Improve prompt design
 * [ ] Add configurable LLM model
 * [ ] Move configuration outside the source code
 * [ ] Improve CLI commands and output
