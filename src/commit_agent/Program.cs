@@ -21,7 +21,14 @@ if (command == "analyze")
         BaseAddress = new Uri("http://localhost:11434/")
     };
 
-    ILLMProvider llmProvider = new OllamaProvider(httpClient);
+    var ollamaOptions = new OllamaOptions
+    {
+        Model = "qwen2.5:3b"
+    };
+
+    ILLMProvider llmProvider = new OllamaProvider(
+        httpClient,
+        ollamaOptions);
 
     var parser = new CommitSuggestionParser();
 

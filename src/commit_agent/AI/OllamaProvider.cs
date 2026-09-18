@@ -5,17 +5,21 @@ namespace commit_agent.AI;
 public class OllamaProvider : ILLMProvider
 {
     private readonly HttpClient _httpClient;
+    private readonly OllamaOptions _options;
 
-    public OllamaProvider(HttpClient httpClient)
+    public OllamaProvider(
+        HttpClient httpClient,
+        OllamaOptions options)
     {
         _httpClient = httpClient;
+        _options = options;
     }
 
     public async Task<string> GenerateAsync(string prompt)
     {
         var request = new
         {
-            model = "qwen2.5:3b",
+            model = _options.Model,
             prompt,
             stream = false,
             format = new
