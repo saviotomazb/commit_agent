@@ -17,7 +17,36 @@ public class OllamaProvider : ILLMProvider
         {
             model = "qwen2.5:3b",
             prompt,
-            stream = false
+            stream = false,
+            format = new
+            {
+                type = "object",
+                properties = new
+                {
+                    type = new
+                    {
+                        type = "string",
+                        @enum = new[]
+                        {
+                            "feat",
+                            "fix",
+                            "refactor",
+                            "docs",
+                            "test",
+                            "chore"
+                        }
+                    },
+                    description = new
+                    {
+                        type = "string"
+                    }
+                },
+                required = new[]
+                {
+                    "type",
+                    "description"
+                }
+            }
         };
 
         var response = await _httpClient.PostAsJsonAsync(

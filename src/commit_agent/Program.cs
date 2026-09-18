@@ -40,7 +40,6 @@ if (command == "analyze")
             return;
         }
 
-        Console.WriteLine("Sugestão de commit:");
         Console.WriteLine($"{suggestion.Type}: {suggestion.Description}");
     }
     catch (Exception ex)
