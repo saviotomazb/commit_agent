@@ -83,7 +83,7 @@ refactor: update model name in OllamaProvider
 * [x] Validate generated Conventional Commit messages
 * [x] Improve prompt design
 * [x] Add configurable LLM model
-* [ ] Move configuration outside the source code
+* [X] Move configuration outside the source code
 * [ ] Improve CLI commands and output
 * [ ] Add error handling for unavailable Ollama instances
 * [ ] Add unit tests
