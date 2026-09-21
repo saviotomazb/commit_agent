@@ -84,7 +84,7 @@ refactor: update model name in OllamaProvider
 * [x] Improve prompt design
 * [x] Add configurable LLM model
 * [X] Move configuration outside the source code
-* [ ] Improve CLI commands and output
+* [X] Improve CLI commands and output
 * [ ] Add error handling for unavailable Ollama instances
 * [ ] Add unit tests
 * [ ] Evaluate additional LLM providers
