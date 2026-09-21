@@ -29,6 +29,15 @@ public class CommitSuggestionParser
                 "The LLM response could not be converted into a commit suggestion.");
         }
 
+        if (!string.IsNullOrWhiteSpace(suggestion.Description))
+        {
+            suggestion = suggestion with
+            {
+                Description = char.ToLowerInvariant(suggestion.Description[0]) +
+                            suggestion.Description[1..]
+            };
+        }
+
         return suggestion;
     }
 

@@ -54,6 +54,7 @@ public class CommitAnalyzer
             - Do not mention readability, maintainability, quality, or performance unless explicitly implemented.
             - Do not invent behavior or functionality.
             - Do not end with a period.
+            - Start the description with a lowercase letter.
 
             Examples:
             feat: add commit suggestion parser

@@ -31,5 +31,13 @@ public class CommitSuggestionValidator
             throw new InvalidOperationException(
                 "The commit description is empty.");
         }
+
+        var firstCharacter = suggestion.Description[0];
+
+        if (!char.IsLetter(firstCharacter) || !char.IsLower(firstCharacter))
+        {
+            throw new InvalidOperationException(
+                "The commit description must start with a lowercase letter.");
+        }
     }
 }
