@@ -1,8 +1,7 @@
 ﻿using commit_agent.AI;
 using commit_agent.Analysis;
 using commit_agent.Git;
-
-Console.WriteLine("Commit Agent");
+using Microsoft.Extensions.Configuration;
 
 if (args.Length == 0)
 {
@@ -21,10 +20,16 @@ if (command == "analyze")
         BaseAddress = new Uri("http://localhost:11434/")
     };
 
-    var ollamaOptions = new OllamaOptions
-    {
-        Model = "qwen2.5:3b"
-    };
+    var configuration = new ConfigurationBuilder()
+        .SetBasePath(AppContext.BaseDirectory)
+        .AddJsonFile("appsettings.json", optional: false)
+        .Build();
+
+    var ollamaOptions = configuration
+        .GetSection("Ollama")
+        .Get<OllamaOptions>()
+        ?? throw new InvalidOperationException(
+            "Ollama configuration was not found.");
 
     ILLMProvider llmProvider = new OllamaProvider(
         httpClient,
